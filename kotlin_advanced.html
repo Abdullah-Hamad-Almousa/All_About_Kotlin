@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kotlin Advanced - Level 2</title>
+    <style>
+        :root {
+            --primary: #2B32B2; /* Deep Royal Blue */
+            --secondary: #1488CC; /* Bright Blue */
+            --bg-grad: linear-gradient(135deg, #2B32B2 0%, #1488CC 100%);
+            --header-grad: linear-gradient(to right, #24243e, #302b63, #24243e);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg-grad); padding: 20px; min-height: 100vh; }
+        .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden; padding-bottom: 60px; }
+        
+        header { background: var(--header-grad); color: white; padding: 30px; text-align: center; }
+        .search-box { margin-top: 20px; }
+        .search-box input { padding: 12px 20px; width: 60%; border-radius: 25px; border: none; font-size: 1.1em; outline: none; }
+        
+        .content { padding: 30px; }
+        h2 { color: var(--primary); border-bottom: 3px solid var(--primary); margin: 30px 0 20px 0; padding-bottom: 10px; }
+        
+        table { width: 100%; border-collapse: collapse; margin-bottom: 40px; }
+        thead { background: var(--primary); color: white; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+        tbody tr:hover { background: #eef2ff; }
+        
+        .keyword { background: var(--primary); color: white; padding: 4px 10px; border-radius: 4px; font-family: monospace; font-weight: bold; }
+        pre { background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 6px; overflow-x: auto; margin-top: 8px; font-family: monospace; }
+        .kotlin-keyword { color: #cc7832; } .kotlin-class { color: #a9b7c6; } .kotlin-string { color: #6a8759; } .kotlin-comment { color: #808080; }
+        
+        .stars { color: #FFD700; font-size: 1.2em; white-space: nowrap; }
+        
+        .nav-btn { position: fixed; bottom: 30px; padding: 15px 30px; background: white; color: var(--primary); border: 2px solid var(--primary); text-decoration: none; border-radius: 50px; font-weight: bold; transition: 0.2s; z-index: 100; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .nav-btn:hover { background: var(--primary); color: white; }
+        .prev { left: 30px; }
+        .next { right: 30px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚡ Kotlin Advanced</h1>
+            <p>Level 2: Delegation, Scope Functions & Control Flow</p>
+            <div class="search-box">
+                <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="🔍 Search keywords (e.g., 'by', 'let', 'reified')...">
+            </div>
+        </header>
+        
+        <div class="content">
+            <h2>🔄 Delegation</h2>
+            <table>
+                <thead><tr><th width="15%">Kotlin Name</th><th width="35%">Description</th><th width="40%">Example</th><th width="10%">Difficulty</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td><span class="keyword">by</span> (Class)</td>
+                        <td>Delegates implementation to another object</td>
+                        <td><pre><span class="kotlin-keyword">class</span> Doc(p: Printer) : Printer <span class="kotlin-keyword">by</span> p</pre></td>
+                        <td><span class="stars">★★★☆☆</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="keyword">by</span> (Property)</td>
+                        <td>Delegates getter/setter logic</td>
+                        <td><pre><span class="kotlin-keyword">val</span> prop <span class="kotlin-keyword">by</span> lazy { ... }</pre></td>
+                        <td><span class="stars">★★★☆☆</span></td>
+                    </tr>
+                    <tr>
+                        <td>observable</td>
+                        <td>Reacts to property changes</td>
+                        <td><pre>Delegates.observable(<span class="kotlin-string">""</span>) { ... }</pre></td>
+                        <td><span class="stars">★★★½☆</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>🧠 Scope Functions</h2>
+            <table>
+                <thead><tr><th>Kotlin Name</th><th>Description</th><th>Example</th><th>Difficulty</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td><span class="keyword">let</span></td>
+                        <td>Argument: <code>it</code>, Returns: Result</td>
+                        <td><pre>obj?.let { println(it) }</pre></td>
+                        <td><span class="stars">★★☆☆☆</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="keyword">apply</span></td>
+                        <td>Argument: <code>this</code>, Returns: Object</td>
+                        <td><pre>User().apply { name = "A" }</pre></td>
+                        <td><span class="stars">★★½☆☆</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="keyword">run</span></td>
+                        <td>Argument: <code>this</code>, Returns: Result</td>
+                        <td><pre>val len = str.run { length }</pre></td>
+                        <td><span class="stars">★★★☆☆</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="keyword">also</span></td>
+                        <td>Argument: <code>it</code>, Returns: Object</td>
+                        <td><pre>makeUser().also { log(it) }</pre></td>
+                        <td><span class="stars">★★★☆☆</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>🔀 Generics & Variance</h2>
+            <table>
+                <thead><tr><th>Kotlin Name</th><th>Description</th><th>Example</th><th>Difficulty</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td><span class="keyword">reified</span></td>
+                        <td>Access type info at runtime (inline only)</td>
+                        <td><pre>inline fun &lt;reified T&gt; isA(x: Any)</pre></td>
+                        <td><span class="stars">★★★★☆</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="keyword">out</span></td>
+                        <td>Covariant (Producer)</td>
+                        <td><pre>List&lt;out Number&gt;</pre></td>
+                        <td><span class="stars">★★★★½</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="keyword">in</span></td>
+                        <td>Contravariant (Consumer)</td>
+                        <td><pre>Comparator&lt;in String&gt;</pre></td>
+                        <td><span class="stars">★★★★½</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <a href="kotlin_basics.html" class="nav-btn prev">⬅ Back: Basics</a>
+    <a href="kotlin_expert.html" class="nav-btn next">Next: Expert ➡</a>
+
+    <script>
+        function searchTable() {
+            let input = document.getElementById('searchInput').value.toUpperCase();
+            let rows = document.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                let text = row.innerText.toUpperCase();
+                row.style.display = text.includes(input) ? '' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
