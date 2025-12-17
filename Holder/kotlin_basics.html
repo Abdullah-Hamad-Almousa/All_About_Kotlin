@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kotlin Basics - Level 1</title>
+    <link rel="icon" type="image/png" href="Kotlin_mascot.png">
+    <style>
+        :root {
+            --primary: #4169E1; /* Royal Blue */
+            --secondary: #6495ED; /* Cornflower Blue */
+            --bg-grad: linear-gradient(135deg, #E6F2FF 0%, #C2D4FF 100%);
+            --header-grad: linear-gradient(135deg, #4169E1 0%, #1E90FF 100%);
+            --accent: #FFD700;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg-grad); padding: 20px; min-height: 100vh; color: #333; }
+        .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); overflow: hidden; padding-bottom: 60px; }
+        
+        /* Header & Search */
+        header { background: var(--header-grad); color: white; padding: 30px; text-align: center; position: relative; }
+        .search-box { margin-top: 20px; }
+        .search-box input { padding: 12px 20px; width: 60%; border-radius: 25px; border: none; font-size: 1.1em; box-shadow: 0 4px 12px rgba(0,0,0,0.2); outline: none; }
+        
+        /* Content */
+        .content { padding: 30px; }
+        h2 { color: var(--primary); border-bottom: 3px solid var(--secondary); margin: 30px 0 20px 0; padding-bottom: 10px; }
+        
+        /* Table */
+        table { width: 100%; border-collapse: collapse; margin-bottom: 40px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        thead { background: var(--secondary); color: white; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+        tbody tr:hover { background: #f0f7ff; }
+        
+        /* Code Styling */
+        .keyword { background: var(--primary); color: white; padding: 4px 10px; border-radius: 4px; font-family: monospace; font-weight: bold; }
+        pre { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 6px; overflow-x: auto; margin-top: 8px; font-family: monospace; }
+        .kotlin-keyword { color: #cc7832; } .kotlin-class { color: #a9b7c6; } .kotlin-string { color: #6a8759; } .kotlin-comment { color: #808080; }
+        
+        /* Stars & Navigation */
+        .stars { color: #FFB400; font-size: 1.2em; white-space: nowrap; }
+        .nav-btn { position: fixed; bottom: 30px; padding: 15px 30px; background: var(--primary); color: white; text-decoration: none; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); font-weight: bold; transition: transform 0.2s; z-index: 100; }
+        .nav-btn:hover { transform: scale(1.05); background: #2b52cd; }
+        .next { right: 30px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📘 Kotlin Basics</h1>
+            <p>Level 1: Fundamentals & Type System</p>
+            <div class="search-box">
+                <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="🔍 Search keywords (e.g., 'class', 'val')...">
+            </div>
+        </header>
+        
+        <div class="content">
+            <h2>🏗️ Class Types</h2>
+            <table>
+                <thead><tr><th width="15%">Kotlin Name</th><th width="35%">Description</th><th width="40%">Example</th><th width="10%">Difficulty</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td><span class="keyword">class</span></td>
+                        <td>Standard class definition</td>
+                        <td><pre><span class="kotlin-keyword">class</span> <span class="kotlin-class">Person</span>(<span class="kotlin-keyword">val</span> name: String)</pre></td>
+                        <td><span class="stars">★☆☆☆☆</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="keyword">data class</span></td>
+                        <td>Auto-generates equals, hashCode, toString</td>
+                        <td><pre><span class="kotlin-keyword">data class</span> <span class="kotlin-class">User</span>(<span class="kotlin-keyword">val</span> id: Int)</pre></td>
+                        <td><span class="stars">★☆☆☆☆</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="keyword">enum class</span></td>
+                        <td>Set of constants</td>
+                        <td><pre><span class="kotlin-keyword">enum class</span> <span class="kotlin-class">Color</span> { RED, BLUE }</pre></td>
+                        <td><span class="stars">★★☆☆☆</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="keyword">interface</span></td>
+                        <td>Defines a contract</td>
+                        <td><pre><span class="kotlin-keyword">interface</span> <span class="kotlin-class">Clickable</span> { <span class="kotlin-keyword">fun</span> click() }</pre></td>
+                        <td><span class="stars">★★☆☆☆</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="keyword">object</span></td>
+                        <td>Singleton instance</td>
+                        <td><pre><span class="kotlin-keyword">object</span> <span class="kotlin-class">DB</span> { <span class="kotlin-keyword">fun</span> connect() {} }</pre></td>
+                        <td><span class="stars">★★☆☆☆</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>📦 Property Types</h2>
+            <table>
+                <thead><tr><th>Kotlin Name</th><th>Description</th><th>Example</th><th>Difficulty</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td><span class="keyword">val</span></td>
+                        <td>Read-only (Immutable reference)</td>
+                        <td><pre><span class="kotlin-keyword">val</span> pi = 3.14</pre></td>
+                        <td><span class="stars">☆☆☆☆☆</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="keyword">var</span></td>
+                        <td>Mutable property</td>
+                        <td><pre><span class="kotlin-keyword">var</span> count = 0</pre></td>
+                        <td><span class="stars">☆☆☆☆☆</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="keyword">lateinit</span></td>
+                        <td>Initialize non-null type later</td>
+                        <td><pre><span class="kotlin-keyword">lateinit var</span> text: String</pre></td>
+                        <td><span class="stars">★★☆☆☆</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="keyword">lazy</span></td>
+                        <td>Initialize on first access</td>
+                        <td><pre><span class="kotlin-keyword">val</span> data <span class="kotlin-keyword">by lazy</span> { load() }</pre></td>
+                        <td><span class="stars">★★½☆☆</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>⚡ Function Types</h2>
+            <table>
+                <thead><tr><th>Kotlin Name</th><th>Description</th><th>Example</th><th>Difficulty</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td><span class="keyword">fun</span></td>
+                        <td>Standard function</td>
+                        <td><pre><span class="kotlin-keyword">fun</span> add(a: Int, b: Int) = a + b</pre></td>
+                        <td><span class="stars">★☆☆☆☆</span></td>
+                    </tr>
+                    <tr>
+                        <td>Extension fun</td>
+                        <td>Extend class functionality</td>
+                        <td><pre><span class="kotlin-keyword">fun</span> String.first() = <span class="kotlin-keyword">this</span>[0]</pre></td>
+                        <td><span class="stars">★★☆☆☆</span></td>
+                    </tr>
+                    <tr>
+                        <td>Lambda</td>
+                        <td>Anonymous function</td>
+                        <td><pre>{ x: Int -> x * 2 }</pre></td>
+                        <td><span class="stars">★★★☆☆</span></td>
+                    </tr>
+                    <tr>
+                        <td>Higher-order</td>
+                        <td>Functions accepting functions</td>
+                        <td><pre>list.filter { it > 5 }</pre></td>
+                        <td><span class="stars">★★★☆☆</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <a href="kotlin_advanced.html" class="nav-btn next">Next: Advanced ➡</a>
+
+    <footer class="kotlin-keyword keyword">
+    <p>&copy; 2025 MysticByte.</p>
+        <p>
+            Licensed under the Apache License, Version 2.0.
+            See <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank">
+                apache.org/licenses/LICENSE-2.0
+            </a>
+        </p>
+    </footer>
+
+
+    <script>
+        function searchTable() {
+            let input = document.getElementById('searchInput').value.toUpperCase();
+            let rows = document.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                let text = row.innerText.toUpperCase();
+                row.style.display = text.includes(input) ? '' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
