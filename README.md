@@ -1,3 +1,0 @@
-# All_About_Kotlin
-This project is an HTML-based Kotlin reference that I created for personal use. It focuses on organizing key Kotlin features so I can quickly look them up when needed. The layout is intentionally simple—its goal is functionality and easy memorization rather than advanced design.
-(kotlin_basics.html)
